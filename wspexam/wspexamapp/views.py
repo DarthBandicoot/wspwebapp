@@ -49,7 +49,7 @@ class PupilLoginView(FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('exam', kwargs={'pk', self.request.user})
+        return reverse_lazy('exam', kwargs={'pk', self.user.id})
 
     def check_user_exists(self, name, email):
         """
@@ -161,7 +161,7 @@ class ExamScoresView(ListView):
     model = ExamResults
     context_object_name = 'results_list'
     template_name = 'scores.html'
-    
+
     def get_queryset(self):
         queryset = ExamResults.objects.all()
 
