@@ -39,7 +39,13 @@ class PupilLoginView(FormView):
             return HttpResponseRedirect(self.get_redirect_url())
 
         if self.check_user_exists(user_firstname, user_email) == 'False':
-            pass
+            user = Pupil(first_name=user_firstname,
+                         last_name=user_lastname,
+                         email_address=user_email)
+            user.save()
+
+        else:
+            user = Pupil.objects.get(email_address=user_email)
 
         return super().form_valid(form)
 
