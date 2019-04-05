@@ -70,8 +70,8 @@ class TeacherLoginForm(forms.Form):
                 raise ValidationError('Password Incorrect')
 
 
-
 class ExamPageForm(forms.Form):
+    questions = ''
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

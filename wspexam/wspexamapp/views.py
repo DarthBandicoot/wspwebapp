@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
 from wspexamapp.forms import PupilLoginForm, TeacherLoginForm, ExamPageForm, ExamQuestionsForm
 from wspexamapp.models import Pupil, Teacher, ExamQuestions
@@ -155,3 +155,7 @@ class QuestionsPageView(FormView):
                           score=score)
 
         return super().form_valid(form)
+
+
+class ExamScoresView(ListView):
+
