@@ -16,8 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from wspexamapp.views import PupilLoginView
-
 urlpatterns = [
-    path('', PupilLoginView.as_view(), name='login'),
+    path('admin/', admin.site.urls),
+    path('', include('wspexamapp.urls')),
 ]
