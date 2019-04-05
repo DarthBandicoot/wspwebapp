@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+{% load bootstrap3 %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,21 +9,45 @@
 </head>
 <body>
 
-{% for result in results_list %}
-    <table>
-        <tr>
-            <th>Exam</th>
-            <th>Pupil</th>
-            <th>Score</th>
-        </tr>
-        <tr>
-            <td>result.exam</td>
-            <td>result.pupil</td>
-            <td>result.score</td>
-        </tr>
-    </table>
 
-{% endfor %}
+<div class="col-lg-8" style="margin-left: 50px">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ title_header }}</h2>
+        </div>
+        <div class="card-body">
+            {% for result in results_list %}
+                <table>
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+
+                        <th>Exam</th>
+
+                        <th>Pupil</th>
+
+                        <th>Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ result.id }}  </td>
+
+                        <td>{{ result.exam }}  </td>
+
+                        <td>{{ result.user }}  </td>
+
+                        <td>{{ result.total }}  </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

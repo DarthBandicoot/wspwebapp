@@ -20,7 +20,7 @@ from wspexamapp.views import PupilLoginView, TeacherLoginView, QuestionsPageView
 
 urlpatterns = [
     path('', PupilLoginView.as_view(), name='login'),
-    path('Exam/<int:pk>/', ExamPageView.as_view(), name='exam'),
+    path('Exam/<int:pk>/', ExamPageView.as_view(), name='exam_page'),
     path('TeacherPortal/', TeacherLoginView.as_view(), name='teacher_portal'),
     path('ExamSetup/<int:pk>/', QuestionsPageView.as_view(), name='exam_setup'),
     path('ScoresList/', ExamScoresView.as_view(), name='results_list')

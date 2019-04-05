@@ -4,13 +4,15 @@ from crispy_forms.layout import Layout, Submit, Fieldset, Field
 from django import forms
 from django.core.exceptions import ValidationError
 
-from wspexamapp.models import Teacher
+from wspexamapp.models import Teacher, Exam
 
 
 class PupilLoginForm(forms.Form):
     first_name = forms.CharField(max_length=250, required=False)
     last_name = forms.CharField(max_length=250, required=False)
     email = forms.CharField(max_length=250, required=False)
+    exam = forms.ModelChoiceField(queryset=Exam.objects.all(), required=False,
+                                  label="Please Select Exam to Continue")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,7 +28,8 @@ class PupilLoginForm(forms.Form):
                 "User Login",
                 Field('first_name'),
                 Field('last_name'),
-                Field('email')
+                Field('email'),
+                Field('exam'),
             ),
             FormActions(
                 Submit('save', 'Login'),
@@ -35,7 +38,10 @@ class PupilLoginForm(forms.Form):
         )
 
     def clean(self):
-        pass
+        exam_choice = self.cleaned_data.get('exam')
+
+        if not exam_choice:
+            raise ValidationError('Please Select Exam')
 
 
 class TeacherLoginForm(forms.Form):

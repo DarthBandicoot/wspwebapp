@@ -12,6 +12,10 @@ class Exam(models.Model):
 
 
 class Pupil(TimeStampedModel):
+
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
     first_name = models.TextField(max_length=50)
     last_name = models.TextField(max_length=50)
     email_address = models.TextField(max_length=100)
@@ -43,5 +47,5 @@ class ExamQuestions(models.Model):
 
 class ExamResults(models.Model):
     user = models.ForeignKey(Pupil, on_delete=models.CASCADE)
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    result = models.FloatField()
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, null=True, blank=True)
+    total = models.FloatField(null=True, blank=True)
