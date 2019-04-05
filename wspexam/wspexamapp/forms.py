@@ -77,16 +77,23 @@ class TeacherLoginForm(forms.Form):
 
 
 class ExamPageForm(forms.ModelForm):
-    class Meta:
-        model = ExamQuestions
-        fields = [
-            'question',
-            'multiple_choice',
-            'multi_choice1'
-            'multi_choice2'
-            'multi_choice3'
-            'correct_answer'
-        ]
+
+    multiple_choices = forms.ModelChoiceField(widget=forms.RadioSelect, queryset=ExamQuestions.objects.all())
+
+    # class Meta:
+    #     model = ExamQuestions
+    #     fields = [
+    #         'question',
+    #         'multi_choice1'
+    #         'multi_choice2'
+    #         'multi_choice3'
+    #         'correct_answer'
+    #     ]
+    #
+    #     widgets = {
+    #         'question': '',
+    #         ''
+    #     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
