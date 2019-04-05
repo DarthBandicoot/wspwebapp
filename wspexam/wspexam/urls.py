@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from wspexamapp.views import PupilLoginView, TeacherLoginView
+from wspexamapp.views import PupilLoginView, TeacherLoginView, QuestionsPageView
 
 urlpatterns = [
     path('', PupilLoginView.as_view(), name='login'),
     path('TeacherPortal/', TeacherLoginView.as_view(), name='teacher_portal'),
+    path('ExamSetup/<int:pk>/', QuestionsPageView.as_view(), name='exam_setup'),
 ]

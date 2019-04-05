@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
@@ -81,7 +80,13 @@ class TeacherLoginView(FormView):
         admin_password = form.cleaned_data.get('password')
 
         if self.check_user_exists(admin_username) == 'False':
-            pass
+            self.user = Teacher(username=admin_username,
+                                password=admin_password)
+
+            self.user.save()
+        else:
+            self.user = Teacher.objects.get(username=admin_username,
+                                            password=admin_password)
 
         return super().form_valid(form)
 
@@ -94,8 +99,8 @@ class TeacherLoginView(FormView):
         return 'False'
 
     def get_success_url(self):
-        messages.add_message('', '', '')
-        return reverse_lazy('')
+
+        return reverse_lazy('exam_setup', kwargs={'pk': self.user.id})
 
 
 class ExamPageView(FormView):

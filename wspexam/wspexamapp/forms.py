@@ -2,6 +2,9 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Fieldset, Field
 from django import forms
+from django.core.exceptions import ValidationError
+
+from wspexamapp.models import Teacher
 
 
 class PupilLoginForm(forms.Form):
@@ -60,7 +63,12 @@ class TeacherLoginForm(forms.Form):
         )
 
     def clean(self):
-        pass
+        user_check = Teacher.objects.get(username=self.cleaned_data.get('username'))
+
+        if user_check:
+            if user_check.password != self.cleaned_data.get('password'):
+                raise ValidationError('Password Incorrect')
+
 
 
 class ExamPageForm(forms.Form):
