@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -33,12 +34,19 @@ class PupilLoginView(FormView):
         user_lastname = form.cleaned_data.get('last_name')
         user_email = form.cleaned_data.get('email')
 
+        if 'isteacher' in self.request.POST:
+            self.get_redirect_url()
+            return HttpResponseRedirect(self.get_redirect_url())
+
+        if self.check_user_exists(user_firstname, user_email) == 'False':
+            pass
+
         return super().form_valid(form)
 
     def check_user_exists(self, name, email):
         """
         will take parameters to check if user exists will create user based on value returned
-        :param name: 
+        :param name:
         :param email:
         :return:
         """
@@ -67,6 +75,14 @@ class TeacherLoginView(FormView):
         admin_password = form.cleaned_data.get('password')
 
         return super().form_valid(form)
+
+    def check_user_exists(self, user):
+
+        user_exist = Teacher.objects.filter(username=user)
+
+        if user_exist.count() >= 1:
+            return 'True'
+        return 'False'
 
 
 class ExamPageView(FormView):
