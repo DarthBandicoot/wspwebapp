@@ -18,6 +18,10 @@ class Pupil(TimeStampedModel):
 
 
 class Teacher(TimeStampedModel):
+
+    def __str__(self):
+        return self.username
+
     username = models.TextField(max_length=50)
     password = models.TextField(max_length=20)
 
@@ -39,5 +43,5 @@ class ExamQuestions(models.Model):
 
 class ExamResults(models.Model):
     user = models.ForeignKey(Pupil, on_delete=models.CASCADE)
-    # exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    result = ''
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    result = models.FloatField()

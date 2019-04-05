@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView, ListView
 
 from wspexamapp.forms import PupilLoginForm, TeacherLoginForm, ExamPageForm, ExamQuestionsForm
-from wspexamapp.models import Pupil, Teacher, ExamQuestions
+from wspexamapp.models import Pupil, Teacher, ExamQuestions, ExamResults
 
 
 class PupilLoginView(FormView):
@@ -158,4 +158,12 @@ class QuestionsPageView(FormView):
 
 
 class ExamScoresView(ListView):
+    model = ExamResults
+    context_object_name = 'results_list'
+    template_name = 'scores.html'
+    
+    def get_queryset(self):
+        queryset = ExamResults.objects.all()
+
+        return queryset
 

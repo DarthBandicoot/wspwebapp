@@ -2,7 +2,7 @@ from django.contrib import admin
 
 
 # Register your models here.
-from .models import Pupil, Teacher, ExamQuestions, Exam
+from .models import Pupil, Teacher, ExamQuestions, Exam, ExamResults
 
 
 @admin.register(Pupil)
@@ -24,3 +24,7 @@ class ExamAdmin(admin.ModelAdmin):
 class ExamQuestionsAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(ExamResults)
+class ExamResultsAdmin(admin.ModelAdmin):
+    pass
