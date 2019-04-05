@@ -19,12 +19,34 @@ class PupilLoginView(FormView):
 
         return context
 
+    def get_redirect_url(self):
+        """
+        will redirect to teacher portal instead
+        :return:
+        """
+        return reverse_lazy(
+            'teacher_portal'
+        )
+
     def form_valid(self, form):
         user_firstname = form.cleaned_data.get('first_name')
         user_lastname = form.cleaned_data.get('last_name')
         user_email = form.cleaned_data.get('email')
 
         return super().form_valid(form)
+
+    def check_user_exists(self, name, email):
+        """
+        will take parameters to check if user exists will create user based on value returned
+        :param name: 
+        :param email:
+        :return:
+        """
+        user_exist = Pupil.objects.filter(first_name=name,
+                                          email_address=email)
+        if user_exist.count() >= 1:
+            return 'True'
+        return 'False'
 
 
 class TeacherLoginView(FormView):
