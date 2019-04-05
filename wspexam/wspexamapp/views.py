@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from wspexamapp.forms import PupilLoginForm, TeacherLoginForm, ExamPageForm, ExamQuestionsForm
-from wspexamapp.models import Pupil, Teacher
+from wspexamapp.models import Pupil, Teacher, ExamQuestions
 
 
 class PupilLoginView(FormView):
@@ -47,6 +47,9 @@ class PupilLoginView(FormView):
             user = Pupil.objects.get(email_address=user_email)
 
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('exam', kwargs={'pk', self.request.user})
 
     def check_user_exists(self, name, email):
         """
@@ -137,5 +140,18 @@ class QuestionsPageView(FormView):
         single_question = form.cleaned_data.get('single_question')
         single_choice = form.cleaned_data.get('single_choice')
         score = form.cleaned_data.get('score')
+
+        if len(multiple_question) > 0:
+            ExamQuestions(question=multiple_question,
+                          multi_choice1=multi_choice1,
+                          multi_choice2=multi_choice2,
+                          multi_choice3=multi_choice3,
+                          correct_answer=correct_answer,
+                          score=score)
+
+        elif len(single_question) > 0:
+            ExamQuestions(question=single_question,
+                          correct_answer=single_choice,
+                          score=score)
 
         return super().form_valid(form)
