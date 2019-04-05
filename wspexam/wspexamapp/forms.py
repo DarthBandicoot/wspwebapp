@@ -33,3 +33,31 @@ class PupilLoginForm(forms.Form):
 
     def clean(self):
         pass
+
+
+class TeacherLoginForm(forms.Form):
+    username = forms.CharField(max_length=250, required=True)
+    password = forms.CharField(max_length=250, required=True, widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+
+        self.helper.form_id = 'main_form'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col-lg-8'
+
+        self.helper.layout = Layout(
+            Fieldset(
+                "Teacher Login",
+                Field('username'),
+                Field('password'),
+            ),
+            FormActions(
+                Submit('save', 'Login'),
+            )
+        )
+
+    def clean(self):
+        pass
