@@ -86,3 +86,47 @@ class ExamPageForm(forms.Form):
 
     def clean(self):
         pass
+
+
+class ExamQuestionsForm(forms.Form):
+    single_question = forms.CharField(max_length=200, required=False)
+    single_choice = forms.CharField(max_length=200, required=False)
+    multiple_question = forms.CharField(max_length=200, required=False)
+    multi_choice1 = forms.CharField(max_length=200, required=False)
+    multi_choice2 = forms.CharField(max_length=200, required=False)
+    multi_choice3 = forms.CharField(max_length=200, required=False)
+    correct_answer = forms.CharField(max_length=200, required=False)
+    score = forms.FloatField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+
+        self.helper.form_id = 'main_form'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col-lg-8'
+
+        self.helper.layout = Layout(
+            Fieldset(
+                "Single Answer Question",
+                Field('single_question'),
+                Field('single_choice'),
+            ),
+            Fieldset(
+                "Multi Answer Question",
+                Field('multiple_question'),
+                Field('multi_choice1'),
+                Field('multi_choice2'),
+                Field('multi_choice3'),
+                Field('correct_answer'),
+            ),
+            Fieldset(
+                "Score For Question",
+                Field('score'),
+            ),
+            FormActions(
+                Submit('save', 'Save Question and Logout'),
+                Submit('save', 'Save Question and add another', css_class='btn-info'),
+            )
+        )
