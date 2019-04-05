@@ -74,6 +74,9 @@ class TeacherLoginView(FormView):
         admin_username = form.cleaned_data.get('username')
         admin_password = form.cleaned_data.get('password')
 
+        if self.check_user_exists(admin_username) == 'False':
+            pass
+
         return super().form_valid(form)
 
     def check_user_exists(self, user):
@@ -83,6 +86,10 @@ class TeacherLoginView(FormView):
         if user_exist.count() >= 1:
             return 'True'
         return 'False'
+
+    def get_success_url(self):
+        messages.add_message('', '', '')
+        return reverse_lazy('')
 
 
 class ExamPageView(FormView):
