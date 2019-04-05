@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from wspexamapp.forms import PupilLoginForm, TeacherLoginForm, ExamPageForm
+from wspexamapp.forms import PupilLoginForm, TeacherLoginForm, ExamPageForm, ExamQuestionsForm
 from wspexamapp.models import Pupil, Teacher
 
 
