@@ -4,7 +4,7 @@ from crispy_forms.layout import Layout, Submit, Fieldset, Field
 from django import forms
 from django.core.exceptions import ValidationError
 
-from wspexamapp.models import Teacher, Exam
+from wspexamapp.models import Teacher, Exam, ExamQuestions
 
 
 class PupilLoginForm(forms.Form):
@@ -76,8 +76,17 @@ class TeacherLoginForm(forms.Form):
                 raise ValidationError('Password Incorrect')
 
 
-class ExamPageForm(forms.Form):
-    questions = ''
+class ExamPageForm(forms.ModelForm):
+    class Meta:
+        model = ExamQuestions
+        fields = [
+            'question',
+            'multiple_choice',
+            'multi_choice1'
+            'multi_choice2'
+            'multi_choice3'
+            'correct_answer'
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
