@@ -61,3 +61,28 @@ class TeacherLoginForm(forms.Form):
 
     def clean(self):
         pass
+
+
+class ExamPageForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+
+        self.helper.form_id = 'main_form'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col-lg-8'
+
+        self.helper.layout = Layout(
+            Fieldset(
+                "Questions",
+
+            ),
+            FormActions(
+                Submit('save', 'Submit Exam')
+            )
+        )
+
+    def clean(self):
+        pass
