@@ -7,6 +7,9 @@ from wspexamapp.models import Pupil, Teacher, ExamQuestions, ExamResults
 
 
 class PupilLoginView(FormView):
+    """
+    Class for User login and Registration
+    """
     form_class = PupilLoginForm
     template_name = 'generic_form.html'
     model = Pupil
@@ -49,6 +52,10 @@ class PupilLoginView(FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
+        """
+        redirects to exam page
+        :return:
+        """
         return reverse_lazy('exam_page', kwargs={'pk': self.user.id})
 
     def check_user_exists(self, name, email):
@@ -66,6 +73,10 @@ class PupilLoginView(FormView):
 
 
 class TeacherLoginView(FormView):
+    """
+    class for Teacher/Admin to Login to the application
+
+    """
     form_class = TeacherLoginForm
     template_name = 'generic_form.html'
     model = Teacher
@@ -94,7 +105,11 @@ class TeacherLoginView(FormView):
         return super().form_valid(form)
 
     def check_user_exists(self, user):
-
+        """
+        Takes teacher username as a param and returns whether exists or not
+        :param user:
+        :return:
+        """
         user_exist = Teacher.objects.filter(username=user)
 
         if user_exist.count() >= 1:
@@ -107,6 +122,9 @@ class TeacherLoginView(FormView):
 
 
 class ExamPageView(FormView):
+    """
+    Will be used as page to take exam
+    """
     form_class = ExamPageForm
     template_name = 'generic_form.html'
 
@@ -120,6 +138,9 @@ class ExamPageView(FormView):
 
 
 class QuestionsPageView(FormView):
+    """
+    View used to add Questions to Exam
+    """
     form_class = ExamQuestionsForm
     template_name = 'generic_form.html'
 
@@ -158,6 +179,9 @@ class QuestionsPageView(FormView):
 
 
 class ExamScoresView(ListView):
+    """
+    View used to display scores of pupils exam
+    """
     model = ExamResults
     context_object_name = 'results_list'
     template_name = 'scores.html'
