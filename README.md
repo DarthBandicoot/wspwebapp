@@ -21,4 +21,5 @@ Future Plans:
 A counter on the Pupil to limit Exam Attempts based on how many times they've logged in
 Validation on Pupil to alert if there email address has already been used
 Build in the abiliy for pupils to take an exam
+Build unit tests for the application
 
